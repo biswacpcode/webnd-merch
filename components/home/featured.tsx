@@ -1,10 +1,16 @@
+'use client'
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles } from "lucide-react"
+import { Skeleton } from "../ui/skeleton"
+import { useState } from "react"
 
 export function FeaturedSection() {
+
+  
+  const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <section id="featured" className="w-full py-16 md:py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
       {/* Decorative Blobs */}
@@ -37,6 +43,16 @@ export function FeaturedSection() {
                     fill
                     className="object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-105"
                   />
+
+{!imageLoaded && <Skeleton className="w-full h-full absolute inset-0" />}
+            <Image
+              src="/ver2webnd.png"
+              alt="WebnD Merch T-shirt"
+              fill
+              className="object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-105"
+              onLoad={() => setImageLoaded(true)}
+              style={{ opacity: imageLoaded ? 1 : 0 }}
+            />
                   <Badge className="absolute top-4 right-4 bg-[#1a3857] text-white text-xs py-1 px-3 rounded-full shadow-md">
                     Bestseller
                   </Badge>

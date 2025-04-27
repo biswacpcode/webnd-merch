@@ -32,6 +32,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState<string | null>(null)
+  
+    const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -197,7 +199,15 @@ export default function Dashboard() {
                           <Button variant="link" className="text-blue-600">View Proof</Button>
                         </SheetTrigger>
                         <SheetContent side="right">
-                          <Image src={order.payment} alt="Payment Proof" width={400} height={400} />
+                          {!imageLoaded && <Skeleton className="w-full h-full absolute inset-0" />}
+                                      <Image
+                                        src={order.payment}
+                                        alt={"Payment Proof"}
+                                        fill
+                                        className="object-cover transition-transform duration-300 hover:scale-110"
+                                        onLoad={() => setImageLoaded(true)}
+                                        style={{ opacity: imageLoaded ? 1 : 0 }}
+                                      />
                         </SheetContent>
                       </Sheet>
                     </TableCell>
