@@ -387,7 +387,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       Pay ₹{totalAmount} with UPI
     </a> */}
 
-    <p className="text-muted-foreground text-xs mx-auto pt-3"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
+    <p className="text-muted-foreground text-xs items-center text-center pt-3"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
   </div>
 </div>
 
