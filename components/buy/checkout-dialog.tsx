@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -46,12 +46,15 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
 
   
   const [preview, setPreview] = useState<string | null>(null)
+  const [orderId, setOrderId] = useState<string | null>(`WD${Math.floor(10000 + Math.random() * 90000)}`)
 
   const totalSteps = quantity + 3 // Welcome + T-shirts + Confirmation + Payment
   const totalAmount = product.price * (quantity===6?5:quantity)
 
-  
-        const orderId = `WD${Math.floor(10000 + Math.random() * 90000)}`
+
+        useEffect(()=>{
+            setOrderId(`WD${Math.floor(10000 + Math.random() * 90000)}`)
+        }, [orderId])
   // Generate UPI payment string
   const upiString = `upi://pay?pa=biswajit5561@okhdfcbank&pn=Web%20and%20Design%20Society&am=${totalAmount}&cu=INR&tn=Payment%20for%20${quantity}%20${product.name}%20t-shirt${quantity>1?'s':''}%20done%20by%20${formData.name}%20for%20order%20id%20${orderId}`
 
