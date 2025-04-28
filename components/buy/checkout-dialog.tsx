@@ -179,7 +179,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="p-0 overflow-hidden max-h-[90vh] max-w-[80dvw] rounded-md">
+        <DialogContent className="p-0 overflow-hidden max-h-[90vh] max-w-[92dvw] md:max-w-[52dvw] rounded-md">
           <div className="relative">
             {/* Progress bar */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gray-200 z-10">
@@ -380,7 +380,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
             Pay with UPI malfunction
     </Button>
     </Link> */}
-    <Button disabled={true} className="inline-block md:ml-[25%] bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+    <Button disabled={true} className="inline-block bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
             Pay Malfunction
     </Button>
 
