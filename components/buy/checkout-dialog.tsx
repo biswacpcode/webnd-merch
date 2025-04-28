@@ -54,7 +54,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
 
   // Generate UPI payment string
   const upiString = `upi://pay?pa=biswajit5561@okhdfcbank&pn=Web%20and%20Design%20Society&am=${totalAmount}&cu=INR&tn=Payment%20for%20${quantity}%20${product.name}%20t-shirt${quantity>1?'s':''}%20done%20by%20${formData.name}%20for%20order%20id%20${orderId}`
-  const buttonupiString = `upi://pay?pa=anshika.131.jain@okhdfcbank&am=${totalAmount}&cu=INR`
+  const buttonupiString = `upi://pay?pa=biswajit5561@okhdfcbank&am=${totalAmount}&cu=INR`
 
   // Generate payment message
   const paymentMessage = `Payment for ${quantity} ${product.name} t-shirt${quantity>1?'s':''} done by ${formData.name} for order id ${orderId}`
@@ -376,7 +376,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
   {/* UPI Payment Button */}
   <div>
     <Link href={buttonupiString}>
-    <Button className="inline-block bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+    <Button disabled={true} className="inline-block bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
             Pay with UPI malfunction
     </Button>
     </Link>
@@ -387,7 +387,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       Pay ₹{totalAmount} with UPI
     </a> */}
 
-    <p className="text-muted-foreground text-xs"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
+    <p className="text-muted-foreground text-xs mx-auto pt-3"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
   </div>
 </div>
 
