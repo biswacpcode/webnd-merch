@@ -52,9 +52,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
   const totalAmount = product.price * (quantity===6?5:quantity)
 
 
-        useEffect(()=>{
-            setOrderId(`WD${Math.floor(10000 + Math.random() * 90000)}`)
-        }, [orderId])
+
   // Generate UPI payment string
   const upiString = `upi://pay?pa=anshika.131.jain@okhdfcbank&pn=Web%20and%20Design%20Society&am=${totalAmount}&cu=INR&tn=Payment%20for%20${quantity}%20${product.name}%20t-shirt${quantity>1?'s':''}%20done%20by%20${formData.name}%20for%20order%20id%20${orderId}`
 
