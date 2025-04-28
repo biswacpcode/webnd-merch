@@ -115,7 +115,6 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       try {
         if (order?.tshirtDetails?.length > 0 && paymentProof) {
             let paymentLink = null;
-            let count = 1;
 
           for (const tshirt of order.tshirtDetails) {
             const formData = new FormData();
@@ -129,7 +128,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       formData.append("position", tshirt.position || "");
       formData.append("payment", order.paymentProof || ""); // Assuming this is URL or file
       formData.append("member", order.userInfo.isMember ? "true" : "false");
-
+              let count = 1;
       
             const res = await CreateMerchRequest(formData, count, paymentLink);
 
