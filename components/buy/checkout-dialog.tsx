@@ -374,20 +374,17 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
   </div>
 
   {/* UPI Payment Button */}
-  <div>
-    <Link href={buttonupiString}>
+  <div className="flex flex-col items-center">
+    {/* <Link href={buttonupiString}>
     <Button disabled={true} className="inline-block bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
             Pay with UPI malfunction
     </Button>
-    </Link>
-    {/* <a
-      href={upiString}
-      className="inline-block bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
-    >
-      Pay ₹{totalAmount} with UPI
-    </a> */}
+    </Link> */}
+    <Button disabled={true} className="inline-block md:ml-[25%] bg-[#1a3857] hover:bg-[#12263a] text-white font-semibold text-sm py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+            Pay Malfunction
+    </Button>
 
-    <p className="text-muted-foreground text-xs items-center text-center pt-3"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
+    <p className="text-muted-foreground text-xs text-center pt-3"> Please scan the QR or pay to biswajit5561@okhdfcbank</p>
   </div>
 </div>
 
