@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import QRCode from "react-qr-code"
 import ImageUpload from "./ImageUpload"
 import { toast } from "@/hooks/use-toast"
-import { CreateMerchRequest, UploadFile } from "@/lib/action"
+import { CreateMerchRequest, sendOrderEmail, SendOrderEmailProps } from "@/lib/action"
 import Link from "next/link"
 
 interface CheckoutDialogProps {
@@ -47,7 +47,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
 
   
   const [preview, setPreview] = useState<string | null>(null)
-  const [orderId, setOrderId] = useState<string | null>(`WD${Math.floor(10000 + Math.random() * 90000)}`)
+  const [orderId, setOrderId] = useState<string>(`WD${Math.floor(10000 + Math.random() * 90000)}`)
 
   const totalSteps = quantity + 3 // Welcome + T-shirts + Confirmation + Payment
   const totalAmount = product.price * (quantity===6?5:quantity)
@@ -115,6 +115,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       try {
         if (order?.tshirtDetails?.length > 0 && paymentProof) {
             let paymentLink = null;
+            let count = 1;
 
           for (const tshirt of order.tshirtDetails) {
             const formData = new FormData();
@@ -128,7 +129,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       formData.append("position", tshirt.position || "");
       formData.append("payment", order.paymentProof || ""); // Assuming this is URL or file
       formData.append("member", order.userInfo.isMember ? "true" : "false");
-              let count = 1;
+
       
             const res = await CreateMerchRequest(formData, count, paymentLink);
 
@@ -147,6 +148,16 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
             }
             count++;
           }
+          const send: SendOrderEmailProps = {
+            toEmail: (order.userInfo.rollNumber).toLowerCase() + "@iitbbs.ac.in",
+            formData: order.userInfo,
+            product: order.product, 
+            quantity: order.tshirtDetails.length,
+            tshirtDetails: order.tshirtDetails,
+            orderId: orderId}
+          
+
+        await sendOrderEmail(send);
           
         setIsSubmitted(true);
         } else {
@@ -236,12 +247,11 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
                           <SelectValue placeholder="Select Size" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="XS">XS</SelectItem>
-                          <SelectItem value="S">S</SelectItem>
-                          <SelectItem value="M">M</SelectItem>
-                          <SelectItem value="L">L</SelectItem>
-                          <SelectItem value="XL">XL</SelectItem>
-                          <SelectItem value="XXL">XXL</SelectItem>
+                          {product.sizes.map((s: string)=>{
+                            return (
+                                <SelectItem value={s}>{s}</SelectItem>
+                            )
+                          })}
                         </SelectContent>
                       </Select>
                     </div>
@@ -250,16 +260,6 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
                       <div>
                         <div className="flex items-center space-x-2">
                           <Label htmlFor="position">Position to be printed</Label>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <Info size={16} className="text-gray-400" />
-                              </TooltipTrigger>
-                              <TooltipContent side="right" sideOffset={5}>
-                                <p className="w-80">The secretary can dismiss this tag if deemed necessary.</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
                         </div>
                         <input
                           id="position"
@@ -267,6 +267,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
                           value={tshirtDetails[currentStep - 1]?.position || ""}
                           onChange={(e) => updateTshirtDetail(currentStep - 1, "position", e.target.value)}
                         />
+                        <p className="w-full text-muted-foreground text-sm mt-3">The secretary can dismiss this tag if deemed necessary.</p>
                       </div>
                     )}
                   </div>

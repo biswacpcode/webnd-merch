@@ -33,6 +33,7 @@ export default function ProductPage() {
   const [showCheckoutDialog, setShowCheckoutDialog] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [showSizeChartModal, setShowSizeChartModal] = useState(false);
+  
 
   // Simulate data fetching
   useEffect(() => {
@@ -127,7 +128,7 @@ export default function ProductPage() {
               Click below to download the size chart for your reference.
             </p>
             <a
-              href="/sizechart.jpg"
+              href={product.sizechart}
               download
               className="inline-block bg-[#1a3857] text-white px-4 py-2 rounded-md hover:bg-[#0f2540] text-center w-full"
             >

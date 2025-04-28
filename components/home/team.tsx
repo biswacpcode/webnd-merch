@@ -12,7 +12,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Biswajit Rout",
     position: "Secretary",
-    image: "/biswajit.png",
+    image: "/biswajit.jpg",
   },
   {
     name: "Rakshit Vel",
@@ -26,7 +26,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Shriya Panda",
-    position: "Upcoming Design Lead",
+    position: "Maiyat Poster Maker",
     image: "/shriya.jpg",
   },
 ]

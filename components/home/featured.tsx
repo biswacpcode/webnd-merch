@@ -6,13 +6,14 @@ import { Badge } from "@/components/ui/badge"
 import { Sparkles } from "lucide-react"
 import { Skeleton } from "../ui/skeleton"
 import { useState } from "react"
+import { products } from "@/lib/data"
 
 export function FeaturedSection() {
 
   
   const [imageLoaded, setImageLoaded] = useState(false)
   return (
-    <section id="featured" className="w-full py-16 md:py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
+    <section id="featured" className="w-full py-16 md:py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative Blobs */}
       <div className="absolute top-0 right-0 w-40 h-40 bg-[#1a3857]/10 rounded-bl-full -z-10"></div>
       <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#1a3857]/10 rounded-tr-full -z-10"></div>
@@ -32,22 +33,19 @@ export function FeaturedSection() {
           </div>
 
           {/* Products */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mt-12 md:w-[30dvw] w-[80dvw]">
-            {/* Product 1 */}
-            <Link href="/buy/webnd-merch" className="group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12 md:w-[70dvw] w-[80dvw]">
+            
+            {/* Products */}
+            {products.map((products)=>{{
+              return (
+                <Link href={`/buy/${products.id}`} className="group" key={products.id}>
               <Card className="overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl">
                 <div className="relative w-full aspect-square overflow-hidden">
-                  <Image
-                    src="/ver2webnd.png"
-                    alt="WebnD Merch T-shirt"
-                    fill
-                    className="object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-105"
-                  />
 
 {!imageLoaded && <Skeleton className="w-full h-full absolute inset-0" />}
             <Image
-              src="/ver2webnd.png"
-              alt="WebnD Merch T-shirt"
+              src={products.image}
+              alt={products.name}
               fill
               className="object-cover rounded-t-2xl transition-transform duration-300 group-hover:scale-105"
               onLoad={() => setImageLoaded(true)}
@@ -58,12 +56,14 @@ export function FeaturedSection() {
                   </Badge>
                 </div>
                 <CardContent className="p-6 bg-white space-y-2 rounded-b-2xl">
-                  <h3 className="text-2xl font-bold text-gray-900">WebnD Merch</h3>
-                  <p className="text-gray-500 text-sm">Oversized T-shirt</p>
-                  <p className="text-xl font-bold text-[#1a3857] mt-3">₹520</p>
+                  <h3 className="text-xl font-bold text-gray-900">{products.name}</h3>
+                  <p className="text-gray-500 text-sm">{products.description}</p>
+                  <p className="text-xl font-bold text-[#1a3857] mt-3">₹{products.price}</p>
                 </CardContent>
               </Card>
             </Link>
+              )
+            }})}
           </div>
         </div>
       </div>
