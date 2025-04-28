@@ -115,6 +115,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
       try {
         if (order?.tshirtDetails?.length > 0 && paymentProof) {
             let paymentLink = null;
+            let merch = 1
 
           for (const tshirt of order.tshirtDetails) {
             const formData = new FormData();
@@ -135,7 +136,7 @@ export function CheckoutDialog({ open, onOpenChange, product, quantity, formData
             if (res.success) {
               toast({
                 title: "Order Submitted!",
-                description: `Your t-shirt #${count} request has been recorded successfully.`,
+                description: `Your t-shirt #${merch++} request has been recorded successfully.`,
               });
             } else {
               toast({
