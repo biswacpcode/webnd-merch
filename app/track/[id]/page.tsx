@@ -9,13 +9,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle2, Clock, Package, Truck, AlertCircle, ChevronRight, Phone, Mail } from "lucide-react"
 import Link from "next/link"
 import { GetOrdersById } from "@/lib/action"
+import { VideoPlayerWithLoader } from "@/components/track/VideoPlayerWithLoader"
 
 interface OrderStatus {
   step: number
   title: string
   description: string
   completed: boolean
+  video?: string
 }
+
 
 interface OrderDetails {
     id: any;
@@ -57,6 +60,13 @@ export default function TrackingPage() {
           title: "Processing",
           description: "Your order is being processed",
           completed: true,
+        },
+        {
+          step: 3,
+          title: "Printing Started",
+          description: "Your order is now being printed",
+          completed: false,
+          video: order.type.includes("WebnD Merch") ? "/videos/webnd-print.mp4" : "/videos/code-print.mp4",
         },
       //   {
       //     step: 3,
@@ -116,7 +126,7 @@ setOrder(final);
     switch (status) {
       case "pending":
         return "bg-yellow-100 text-yellow-800"
-      case "processing":
+      case "Printing":
         return "bg-blue-100 text-blue-800"
       case "shipped":
         return "bg-purple-100 text-purple-800"
@@ -160,7 +170,7 @@ setOrder(final);
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h1 className="text-3xl font-bold">Order Tracking</h1>
-            <Badge className={`text-sm px-3 py-1 ${getStatusColor("Processing")}`}>
+            <Badge className={`text-sm px-3 py-1 ${getStatusColor("Printing")}`}>
             Processing
             </Badge>
           </div>
@@ -268,6 +278,12 @@ setOrder(final);
                       </div>
                       <p className="text-sm text-gray-500">{status.description}</p>
                     </div>
+                    {status.video && (
+  <div className="relative mt-4 border rounded-md overflow-hidden bg-black/5">
+    <VideoPlayerWithLoader src={status.video} />
+  </div>
+)}
+
                   </div>
                 ))}
               </div>

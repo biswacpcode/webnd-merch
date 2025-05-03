@@ -90,3 +90,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@keyframes slide-in-left {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+@keyframes slide-out-right {
+  0% { transform: translateX(0); opacity: 0; }
+  50% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 1.5s ease-in-out;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 1.5s ease-in-out 1.5s;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 3s infinite;
+}
